@@ -1,0 +1,46 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: TerraformValidate
+  jobs:
+    - job: TerraformValidateJob
+      continueOnError: true
+      steps:
+       # Step to install Azure CLI
+      - script: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+          az --version
+        displayName: 'Install Azure CLI'
+
+      # Step to log in to Azure CLI using a service principal
+      #- script: |
+      #    az login --service-principal -u $(AZURE_CLIENT_ID) -p $(AZURE_CLIENT_SECRET) --tenant $(AZURE_TENANT_ID)
+      #  displayName: 'Login to Azure CLI'
+      - task: PublishPipelineArtifact@1
+        displayName: Publish Artifacts
+        inputs:
+          targetPath: '$(System.DefaultWorkingDirectory)/examples/application_gateway_ingress'
+          artifact: 'terraform-manifests-out'
+          publishLocation: 'pipeline'
+      - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+        inputs:
+          terraformVersion: 'latest'
+      - task: TerraformCLI@2
+        inputs:
+          command: 'init'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/examples/application_gateway_ingress'
+          allowTelemetryCollection: true
+
+      - task: TerraformCLI@2
+        inputs:
+          command: 'validate'
+          allowTelemetryCollection: false
+      - task: TerraformCLI@2
+        inputs:
+          command: 'plan'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/examples/application_gateway_ingress'
+          allowTelemetryCollection: true
