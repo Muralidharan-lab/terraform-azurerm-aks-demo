@@ -18,7 +18,6 @@ terraform {
       version = "0.9.1"
     }
   }
-}
 
 backend "azurerm" {
     resource_group_name  = "k8s"   # Partial configuration, provided during "terraform init"
