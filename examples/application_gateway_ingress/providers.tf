@@ -31,6 +31,12 @@ backend "azurerm" {
 
 provider "azurerm" {
   features {
+  client_id       = "e07067bb-36bd-4d36-956c-aff6ff7e667e"
+  client_secret   = "hDJ8Q~zEcU~odczrZn2loKbupi2HxouiaoJ0IbOI"
+  tenant_id       = "b41b72d0-4e9f-4c26-8a69-f949f367c91d"
+  subscription_id = "346142f0-61a3-4c25-81bd-910e4027886a"
+}
+
     resource_group {
       prevent_deletion_if_contains_resources = false
     }
