@@ -20,6 +20,15 @@ terraform {
   }
 }
 
+backend "azurerm" {
+    resource_group_name  = "k8s"   # Partial configuration, provided during "terraform init"
+     storage_account_name = "k8stestbsi"   # Partial configuration, provided during "terraform init"
+     container_name       = "k8stestbsi"   # Partial configuration, provided during "terraform init"
+    key                  = "aksdemo"
+  }
+}
+
+
 provider "azurerm" {
   features {
     resource_group {
