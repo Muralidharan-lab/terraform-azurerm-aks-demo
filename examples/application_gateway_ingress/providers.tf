@@ -19,14 +19,6 @@ terraform {
     }
   }
 
-backend "azurerm" {
-    resource_group_name  = "k8s"   # Partial configuration, provided during "terraform init"
-     storage_account_name = "k8stestbsi"   # Partial configuration, provided during "terraform init"
-     container_name       = "k8stestbsi"   # Partial configuration, provided during "terraform init"
-    key                  = "aksdemo"
-  }
-}
-
 
 provider "azurerm" {
   features {}
@@ -36,6 +28,8 @@ provider "azurerm" {
   subscription_id = "346142f0-61a3-4c25-81bd-910e4027886a"
 }
 
+provider "azuread" {
+}
 
 # DO NOT DO THIS IN PRODUCTION ENVIRONMENT
 provider "kubernetes" {
