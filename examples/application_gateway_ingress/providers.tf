@@ -17,17 +17,8 @@ terraform {
       source  = "hashicorp/time"
       version = "0.9.1"
     }
-    null = {
-      source  = "hashicorp/null"
-      version = "3.1.0"  # Use appropriate version
-    }
-    tls = {
-      source  = "hashicorp/tls"
-      version = "3.2.0"  # Use appropriate version
-    }
   }
 }
-
 
 provider "azurerm" {
   features {
@@ -46,9 +37,3 @@ provider "kubernetes" {
 }
 
 provider "random" {}
-
-provider "time" {}
-
-provider "null" {}
-
-provider "tls" {}
